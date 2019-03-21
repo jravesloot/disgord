@@ -636,6 +636,7 @@ func NewUserPresence() *UserPresence {
 }
 
 // UserPresence presence info for a guild member or friend/user in a DM
+//easyjson:json
 type UserPresence struct {
 	Lockable `json:"-"`
 

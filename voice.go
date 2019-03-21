@@ -10,6 +10,7 @@ import (
 // VoiceState Voice State structure
 // https://discordapp.com/developers/docs/resources/voice#voice-state-object
 // reviewed 2018-09-29
+//easyjson:json
 type VoiceState struct {
 	Lockable `json:"-"`
 

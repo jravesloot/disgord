@@ -98,6 +98,7 @@ type PartialChannel struct {
 }
 
 // Channel ...
+//easyjson:json
 type Channel struct {
 	Lockable             `json:"-"`
 	ID                   Snowflake             `json:"id"`

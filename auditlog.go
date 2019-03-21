@@ -106,6 +106,7 @@ const (
 )
 
 // AuditLog ...
+//easyjson:json
 type AuditLog struct {
 	Lockable `json:"-"`
 
@@ -167,6 +168,7 @@ func (l *AuditLog) CopyOverTo(other interface{}) (err error) {
 }
 
 // AuditLogEntry ...
+//easyjson:json
 type AuditLogEntry struct {
 	Lockable `json:"-"`
 
@@ -223,6 +225,7 @@ func (l *AuditLogEntry) CopyOverTo(other interface{}) (err error) {
 }
 
 // AuditLogOption ...
+//easyjson:json
 type AuditLogOption struct {
 	Lockable `json:"-"`
 
@@ -273,6 +276,7 @@ func (l *AuditLogOption) CopyOverTo(other interface{}) (err error) {
 }
 
 // AuditLogChanges ...
+//easyjson:json
 type AuditLogChanges struct {
 	Lockable `json:"-"`
 

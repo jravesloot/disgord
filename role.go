@@ -94,6 +94,7 @@ func NewRole() *Role {
 }
 
 // Role https://discordapp.com/developers/docs/topics/permissions#role-object
+//easyjson:json
 type Role struct {
 	Lockable `json:"-"`
 

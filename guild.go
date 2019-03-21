@@ -1,7 +1,6 @@
 package disgord
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"math"
@@ -146,6 +145,7 @@ func NewGuildUnavailable(ID Snowflake) *GuildUnavailable {
 }
 
 // GuildUnavailable is a partial Guild object.
+//easyjson:json
 type GuildUnavailable struct {
 	ID          Snowflake `json:"id"`
 	Unavailable bool      `json:"unavailable"` // ?*|
@@ -174,6 +174,7 @@ type PartialGuild = Guild // TODO: find the actual data struct for partial guild
 // https://discordapp.com/developers/docs/resources/guild#guild-object
 // Fields with `*` are only sent within the GUILD_CREATE event
 // reviewed: 2018-08-25
+//easyjson:json
 type Guild struct {
 	Lockable `json:"-"`
 
@@ -324,29 +325,29 @@ func (g *Guild) GetMemberWithHighestSnowflake() *Member {
 
 // MarshalJSON see interface json.Marshaler
 // TODO: fix copying of mutex lock
-func (g *Guild) MarshalJSON() ([]byte, error) {
-	if constant.LockedMethods {
-		g.Lock()
-		defer g.Unlock()
-	}
-
-	var jsonData []byte
-	var err error
-	if g.Unavailable {
-		guildUnavailable := NewGuildUnavailable(g.ID)
-		jsonData, err = json.Marshal(guildUnavailable)
-		if err != nil {
-			return []byte(""), nil
-		}
-	} else {
-		jsonData, err = json.Marshal(Guild(*g))
-		if err != nil {
-			return []byte(""), nil
-		}
-	}
-
-	return jsonData, nil
-}
+//func (g *Guild) MarshalJSON() ([]byte, error) {
+//	if constant.LockedMethods {
+//		g.Lock()
+//		defer g.Unlock()
+//	}
+//
+//	var jsonData []byte
+//	var err error
+//	if g.Unavailable {
+//		guildUnavailable := NewGuildUnavailable(g.ID)
+//		jsonData, err = json.Marshal(guildUnavailable)
+//		if err != nil {
+//			return []byte(""), nil
+//		}
+//	} else {
+//		jsonData, err = json.Marshal(Guild(*g))
+//		if err != nil {
+//			return []byte(""), nil
+//		}
+//	}
+//
+//	return jsonData, nil
+//}
 
 // sortChannels Only while in lock
 func (g *Guild) sortChannels() {
@@ -993,6 +994,7 @@ func (i *IntegrationAccount) CopyOverTo(other interface{}) (err error) {
 // -------
 
 // Member https://discordapp.com/developers/docs/resources/guild#guild-member-object
+//easyjson:json
 type Member struct {
 	Lockable `json:"-"`
 

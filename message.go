@@ -72,6 +72,7 @@ type MessageApplication struct {
 }
 
 // Message https://discordapp.com/developers/docs/resources/channel#message-object-message-structure
+//easyjson:json
 type Message struct {
 	Lockable        `json:"-"`
 	ID              Snowflake          `json:"id"`
