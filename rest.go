@@ -19,14 +19,6 @@ type URLQueryStringer interface {
 	URLQueryString() string
 }
 
-func unmarshal(data []byte, v interface{}) error {
-	return httd.Unmarshal(data, v)
-}
-
-func marshal(v interface{}) ([]byte, error) {
-	return httd.Marshal(v)
-}
-
 // AvatarParamHolder is used when handling avatar related REST structs.
 // since a Avatar can be reset by using nil, it causes some extra issues as omit empty cannot be used
 // to get around this, the struct requires an internal state and must also handle custom marshalling
@@ -192,7 +184,7 @@ func (r *rest) processContent(body []byte) (v interface{}, err error) {
 	}
 
 	obj := r.Get()
-	if err = httd.Unmarshal(body, obj); err != nil {
+	if err = Unmarshal(body, obj); err != nil {
 		r.Put(obj)
 		return nil, err
 	}
@@ -205,7 +197,6 @@ func (r *rest) stepUpdateContent(x interface{}) {
 	if x == nil {
 		return
 	}
-	executeInternalUpdater(x)
 	executeInternalClientUpdater(r.c, x)
 }
 
@@ -353,11 +344,10 @@ func (b *RESTBuilder) execute() (v interface{}, err error) {
 
 	if len(body) > 1 && b.itemFactory != nil {
 		v = b.itemFactory()
-		if err = httd.Unmarshal(body, v); err != nil {
+		if err = Unmarshal(body, v); err != nil {
 			return nil, err
 		}
 
-		executeInternalUpdater(v)
 		// executeInternalClientUpdater(disgord.Client, v)
 
 		if b.cacheRegistry == NoCacheSpecified {
@@ -444,7 +434,7 @@ func GetGateway(client httd.Getter) (gateway *Gateway, err error) {
 		return
 	}
 
-	err = unmarshal(body, &gateway)
+	err = Unmarshal(body, &gateway)
 	return
 }
 
@@ -468,7 +458,7 @@ func GetGatewayBot(client httd.Getter) (gateway *GatewayBot, err error) {
 		return
 	}
 
-	err = unmarshal(body, &gateway)
+	err = Unmarshal(body, &gateway)
 	return
 }
 

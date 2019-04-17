@@ -278,18 +278,27 @@ func getZeroVal(s string) (result string, success bool) {
 	case "uint", "uint8", "uint16", "uint32", "uint64":
 		result = "0"
 	case "float32", "float64":
-		result = "0"
-	case "Snowflake", "snowflake.ID", "snowflake.Snowflake":
-		result = "0"
+		result = "0.0"
 	case "string":
 		result = ""
 		success = true
 	case "bool":
 		result = "false"
-	case "nil":
-		result = s
-		// TODO: find out what the original data type is
-	case "VerificationLvl", "DefaultMessageNotificationLvl", "ExplicitContentFilterLvl", "MFALvl", "Discriminator", "PremiumType":
+	case "Snowflake", "snowflake", "snowflake.Snowflake", "snowflake.ID":
+		result = "0"
+	case "PermissionBits", "PermissionBit":
+		result = "0"
+	case "MFALvl":
+		result = "0"
+	case "VerificationLvl":
+		result = "0"
+	case "DefaultMessageNotificationLvl":
+		result = "0"
+	case "ExplicitContentFilterLvl":
+		result = "0"
+	case "Discriminator":
+		result = "0"
+	case "PremiumType":
 		result = "0"
 	}
 
